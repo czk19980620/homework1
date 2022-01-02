@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 public class SimplePolicy {
 	
 	final int genThreadInPool = 2; //不超过8
-	final int computeThreadInPool = 2; //不超过16
+	final int computeThreadInPool = 4; //不超过16
 	SimpleShareData ssd;
 	
 	public SimplePolicy() {
@@ -44,11 +44,10 @@ public class SimplePolicy {
 			computeThreadPool.execute(simpleDiv);
 		}
 		ssd.getCompSig().await();
-		
-		Integer[] box = ssd.getShare().toArray(new Integer[ssd.getShare().size()]);
-		Arrays.sort(box);
+
+		ssd.getScore().sort(null);
 		for (int i = 0; i < SimpleShareData.BUFSIZE; i++) {
-			ssd.getTop()[i] = box[box.length - i - 1];
+			ssd.getTop()[i] = ssd.getScore().get(ssd.getScore().size() - i - 1);
 		}
 		printTop();
 		

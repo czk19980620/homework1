@@ -57,7 +57,7 @@ public class ThreadRace {
 		SimplePolicy sp = new SimplePolicy();
 		long totalSimple = sp.go();
 		
-		double rate = totalSimple / totalTime;
+		double rate = (double)totalSimple / totalTime;
 		System.out.println("自定义A和基准比较: " + new Double(rate).toString());
 	}
 	
